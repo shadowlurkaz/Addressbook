@@ -1,0 +1,70 @@
+def main():
+    my_dict = {}
+    while 1:
+        command = input("""*** My Contacts ***
+    f – find
+    a – add new entry
+    d – delete
+    l – list all
+    q – quit
+    command: """)
+        name = ()
+        address = ()
+        number = ()
+        nickname = ()
+
+        if command.lower() == "a":
+            createList()
+        if command.lower() == "l":
+            readList()
+        if command.lower() == "f":
+            findList()
+        if command.lower() == "d":
+            deleteList()
+        if command.lower() == "q":
+            quit()
+
+
+def createList():
+    name = input("Name: ")
+    address = input("Address: ")
+    number = input("Phone-number: ")
+    nickname = input("Nickname: ")
+    while nickname.lower() in my_dict:
+        overwrite = input("This nickname is already in use would you like to overwrite yes/no: ")
+        if overwrite.lower() == 'yes':
+            for i in my_dict[nickname.lower()]:
+                my_dict.clear()
+        else:
+            nickname = input("Please rename: ")
+    my_dict[nickname.lower()] = name, address, number
+    return my_dict[nickname.lower()]
+
+
+def readList():
+    print("{:20} {:20} {:20} {:20}".format("Nickname", "Name", "Address", "Phone Number" ))
+    print(str('\n'.join("{:20} {:20} {:20} {:20}".format(k, *v) for k, v in my_dict .items())))
+
+
+def findList():
+    nickname = input("Nickname: ")
+    if (nickname.lower()) not in my_dict:
+        print("This nickname is invalid" "\n")
+        loop()
+    else:
+        print("{:5} {:5} {:5} {:5}".format(nickname,*my_dict [nickname.lower()]))
+
+
+def deleteList():
+    nickname = input("Nickname: ")
+    if (nickname.lower()) not in my_dict:
+        print("This nickname is invalid" "\n")
+        loop()
+    else:
+        print(my_dict [nickname.lower()])
+    yes_no = input("Is this the correct one to be deleted: ")
+    if yes_no.lower() == 'yes':
+        print("'%s' has been deleted" % nickname, "\n")
+        del my_dict[nickname]
+
+main()
