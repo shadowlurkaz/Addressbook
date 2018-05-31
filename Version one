@@ -1,0 +1,57 @@
+my_dict = {}
+
+
+def loop ():
+    while 1:
+        command = input("""*** My Contacts ***
+    f – find
+    a – add new entry
+    d – delete
+    l – list all
+    q – quit
+    command: """)
+
+        if command.lower() == "a":
+            name = input("Name: ")
+            address = input("Address: ")
+            number = input("Phone-number: ")
+            nickname = input("Nickname: ")
+            while nickname.lower() in my_dict:
+                overwrite = input("This nickname is already in use would you like to overwrite yes/no: ")
+                if overwrite.lower() == 'yes':
+                    for i in my_dict[nickname.lower()]:
+                        my_dict.clear()
+                else:
+                    nickname = input("Please rename: ")
+            my_dict[nickname.lower()] = name, address, number
+
+
+        if command.lower() == "l":
+            print("{:20} {:20} {:20} {:20}".format("Nickname", "Name", "Address", "Phone Number" ))
+            print (str('\n'.join("{:20} {:20} {:20} {:20}".format(k, *v) for k, v in my_dict .items())))
+
+        if command.lower() == "f":
+            nickname = input("Nickname: ")
+            if (nickname.lower()) not in my_dict:
+                print("This nickname is invalid" "\n")
+                loop()
+            else:
+                print("{:5} {:5} {:5} {:5}".format(nickname,*my_dict [nickname.lower()]))
+
+        if command.lower() == "d":
+            nickname = input("Nickname: ")
+            if (nickname.lower()) not in my_dict:
+                print("This nickname is invalid" "\n")
+                loop()
+            else:
+                print(my_dict [nickname.lower()])
+            yes_no = input("Is this the correct one to be deleted: ")
+            if yes_no.lower() == 'yes':
+                print("'%s' has been deleted" % nickname, "\n")
+                del my_dict[nickname]
+
+        if command.lower() == "q":
+            quit()
+
+
+loop()
